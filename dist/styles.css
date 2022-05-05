@@ -71,46 +71,73 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background-color: #000000;
 }
 
 .header-div {
   width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
-  background-color: red;
+  background-color: #464646;
 }
 
 .text-area-div {
-  width: 500px;
-  height: 300px;
-  margin: 30px;
-  background-color: blue;
-  border: 2px solid #000000;
+  width: 600px;
+  height: 150px;
+  margin: 60px 0 30px 0;
+  border: 2px solid #6d5812;
+  border-radius: 7px;
 }
 
 .keyboard-div {
-  width: 500px;
-  height: 400px;
+  width: 880px;
+  height: 290px;
   margin: 50px 0;
-  background-color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .footer-div {
   width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
-  background-color: green;
+  background-color: #464646;
 }
 
 .key {
+  height: 50px;
+  color: #ffffff;
   background-color: transparent;
   border: 2px solid #ffffff;
-  border-radius: 8px;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .key-size-1 {
   width: 50px;
-  height: 50px;
+}
+
+.key-size-2 {
+  width: 65px;
+}
+
+.key-size-3 {
+  width: 75px;
+}
+
+.key-size-4 {
+  width: 90px;
+}
+
+.key-size-5 {
+  width: 100px;
+}
+
+.key-size-6 {
+  width: 250px;
 }
 
 /*# sourceMappingURL=styles.css.map */
