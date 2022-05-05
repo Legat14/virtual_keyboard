@@ -1,0 +1,116 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-div {
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: red;
+}
+
+.text-area-div {
+  width: 500px;
+  height: 300px;
+  margin: 30px;
+  background-color: blue;
+  border: 2px solid #000000;
+}
+
+.keyboard-div {
+  width: 500px;
+  height: 400px;
+  margin: 50px 0;
+  background-color: gray;
+}
+
+.footer-div {
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: green;
+}
+
+.key {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+}
+
+.key-size-1 {
+  width: 50px;
+  height: 50px;
+}
+
+/*# sourceMappingURL=styles.css.map */
