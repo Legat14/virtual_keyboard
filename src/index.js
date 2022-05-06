@@ -1,5 +1,6 @@
 import { Field } from "./classes/field";
-import { keysEn, Key } from "./classes/key";
+import { keycodes, keyLettersEn, Key } from "./classes/key";
+import { addKeyboardListener } from "./classes/globalEvents";
 
 const field = new Field();
 
@@ -7,6 +8,12 @@ field.create();
 
 const buttonsArr = [];
 
-keysEn.forEach((key, number) => {
-  buttonsArr[number] = new Key(key, number);
+keycodes.forEach((keycode, number) => {
+  buttonsArr[number] = new Key(keycode, keyLettersEn[number], number);
+  buttonsArr[number].addKeyboardListener(); 
+  buttonsArr[number].removeKeyboardListener(); 
 });
+
+export { buttonsArr };
+
+  addKeyboardListener();

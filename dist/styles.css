@@ -113,7 +113,32 @@ body {
   background-color: transparent;
   border: 2px solid #ffffff;
   border-radius: 12px;
+  outline: 2px solid;
+  outline-color: white;
+  outline-offset: -2px;
+  box-shadow: inset 0 0 1px rgba(255, 247, 142, 0);
   cursor: pointer;
+  transition: outline 0.2s, outline-color 0.2s, outline-offset 0.2s, box-shadow 0.2s, scale 0.2s, color 0.1s;
+}
+.key:hover {
+  box-shadow: inset 0 0 20px #fffab3;
+}
+.key:active {
+  color: #000000;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.1);
+  outline-offset: 20px;
+  box-shadow: inset 0 0 35px #fffab3;
+  transform: scale(93%);
+}
+
+.key_active {
+  color: #000000;
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.1);
+  outline-offset: 20px;
+  box-shadow: inset 0 0 35px #fffab3;
+  transform: scale(93%);
 }
 
 .key-size-1 {
@@ -137,7 +162,7 @@ body {
 }
 
 .key-size-6 {
-  width: 250px;
+  width: 265px;
 }
 
 /*# sourceMappingURL=styles.css.map */
