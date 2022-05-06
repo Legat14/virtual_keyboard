@@ -1,4 +1,4 @@
-import { enterLetter, deletePrevousLetter, nextString } from "../functions/textArea";
+import { enterLetter, deletePrevousLetter, nextString, moveCursor } from "../functions/textArea";
 
 export {
   keycodes,
@@ -73,13 +73,17 @@ class Key {
     });
   }
   pressKey() {
-    console.log(this.keycode);
-    if (this.keycode === 'Backspace') {
-      deletePrevousLetter();
-    } else if (this.keycode === 'Enter') {
-      nextString();
-    } else {
-      enterLetter(this);
+    if (this.keycode !== 'MetaLeft') {
+      if (this.keycode === 'Backspace') {
+        deletePrevousLetter();
+      } else if (this.keycode === 'Enter') {
+        nextString();
+      } else if (this.keycode === 'ArrowUp' || this.keycode === 'ArrowDown' || this.keycode === 'ArrowLeft' || this.keycode === 'ArrowRight') {
+        moveCursor(this.keycode);
+      }
+      else {
+        enterLetter(this);
+      }
     }
   }
 };

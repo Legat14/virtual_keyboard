@@ -1,4 +1,4 @@
-export { enterLetter, deletePrevousLetter, nextString };
+export { enterLetter, deletePrevousLetter, nextString, moveCursor };
 
 function getCursorPositions() {
   const textArea = document.querySelector('.text-area');
@@ -46,6 +46,86 @@ function nextString() {
   const cursorPositions = getCursorPositions();
   textArea.value = textArea.value.substring(0, cursorPositions.start) + '\n' + textArea.value.substring(cursorPositions.end);
   cursorPositions.start++;
+  textArea.focus();
+  placeCursor(cursorPositions);
+}
+
+function moveCursor(arrow) {
+  const textArea = document.querySelector('.text-area');
+  const cursorPositions = getCursorPositions();
+  if (arrow === 'ArrowLeft') {
+    if (cursorPositions.end !== 0) {
+      cursorPositions.end--;
+    }
+    cursorPositions.start = cursorPositions.end;
+  } else if (arrow === 'ArrowRight') {
+    cursorPositions.end++;
+    cursorPositions.start = cursorPositions.end;
+  } else if (arrow === 'ArrowUp') {
+    const text = textArea.value;
+    let currentStringPosition;
+    let currentStringStartPosition = 0;
+    let previousStringStartPosition = 0;
+    for (let i = cursorPositions.end - 1; i >= 0; i--) {
+      if (text[i] === '\n') {
+        currentStringStartPosition = i + 1;
+        break;
+      }
+    }
+    currentStringPosition = cursorPositions.end - currentStringStartPosition;
+    for (let i = currentStringStartPosition - 2; i >= 0; i--) {
+      if (text[i] === '\n') {
+        previousStringStartPosition = i + 1;
+        break;
+      }
+    }
+    if (previousStringStartPosition + currentStringPosition >= currentStringStartPosition) {
+      if (previousStringStartPosition === 0 && currentStringStartPosition === 0) {
+        cursorPositions.end = 0;
+      } else {
+        cursorPositions.end = currentStringStartPosition - 1;
+      }
+    } else {
+      cursorPositions.end = previousStringStartPosition + currentStringPosition;
+    }
+    cursorPositions.start = cursorPositions.end;
+    console.log('text = ', text, 'text.length = ', text.length, 'currentStringPosition = ', currentStringPosition, 'currentStringStartPosition = ',
+    currentStringStartPosition, 'previousStringStartPosition = ', previousStringStartPosition);
+  } else if (arrow === 'ArrowDown') {
+    const text = textArea.value;
+    let currentStringPosition;
+    let currentStringStartPosition = 0;
+    let currentStringEndPosition = text.length;
+    let nextStringEndPosition = text.length;
+    for (let i = cursorPositions.end - 1; i >= 0; i--) {
+      if (text[i] === '\n') {
+        currentStringStartPosition = i + 1;
+        break;
+      }
+    }
+    currentStringPosition = cursorPositions.end - currentStringStartPosition;
+    for (let i = cursorPositions.end; i < text.length; i++) {
+      if (text[i] === '\n') {
+        currentStringEndPosition = i;
+        break;
+      }
+    }
+    for (let i = currentStringEndPosition + 2; i < text.length; i++) {
+      if (text[i] === '\n') {
+        nextStringEndPosition = i;
+        break;
+      }
+    }
+    console.log('text = ', text, 'text.length = ', text.length, 'cursorPositions.end = ', cursorPositions.end, 'currentStringPosition = ',
+    currentStringPosition, 'currentStringStartPosition = ',
+    currentStringStartPosition, 'currentStringEndPosition = ', currentStringEndPosition, 'nextStringEndPosition = ', nextStringEndPosition);
+    if (currentStringEndPosition + 1 + currentStringPosition > nextStringEndPosition) {
+      cursorPositions.end = nextStringEndPosition;
+    } else {
+      cursorPositions.end = currentStringEndPosition + 1 + currentStringPosition;
+    }
+    cursorPositions.start = cursorPositions.end;
+  }
   textArea.focus();
   placeCursor(cursorPositions);
 }
