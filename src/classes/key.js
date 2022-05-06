@@ -1,3 +1,5 @@
+import { enterLetter, deletePrevousLetter, nextString } from "../functions/textArea";
+
 export {
   keycodes,
   keyLettersEn,
@@ -52,19 +54,32 @@ class Key {
     } else {
       this.button.innerHTML = keyLetter;
     }
+
+    this.button.addEventListener('click', () => {
+      this.pressKey();
+    });
+
     const keyboardDiv = document.querySelector('.keyboard-div');
     keyboardDiv.append(this.button);
   }
-  addKeyboardListener() {
+  addKeyboardActive() {
     this.button.addEventListener('keydown', () => {
-      console.log(this.button);
       this.button.classList.add('key_active');
     });
   }
-  removeKeyboardListener() {
+  removeKeyboardActive() {
     this.button.addEventListener('keyup', () => {
-      console.log(this.button);
       this.button.classList.remove('key_active');
     });
+  }
+  pressKey() {
+    console.log(this.keycode);
+    if (this.keycode === 'Backspace') {
+      deletePrevousLetter();
+    } else if (this.keycode === 'Enter') {
+      nextString();
+    } else {
+      enterLetter(this);
+    }
   }
 };
