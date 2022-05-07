@@ -11,8 +11,8 @@ const buttonsArr = [];
 
 keycodes.forEach((keycode, number) => {
   buttonsArr[number] = new Key(keycode, keyLettersEn[number], number);
-  buttonsArr[number].addKeyboardActive(); 
-  buttonsArr[number].removeKeyboardActive(); 
+  //buttonsArr[number].addKeyboardActive(); 
+  //buttonsArr[number].removeKeyboardActive(); 
 });
 
   const textArea = document.querySelector('.text-area');

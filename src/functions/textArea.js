@@ -1,10 +1,10 @@
-export { enterLetter, deletePrevousLetter, nextString, moveCursor };
+export { enterLetter, deletePreviousLetter, deleteNextLetter, nextString, moveCursor, insertTab, insertSpace, toggleCapsLock };
+import { capsLockOn } from '../classes/key'
 
 function getCursorPositions() {
   const textArea = document.querySelector('.text-area');
   const start = textArea.selectionStart;
   const end = textArea.selectionEnd;
-  console.log(start, end);
   return {
     start: start,
     end: end
@@ -26,7 +26,7 @@ function enterLetter(buttonObj) {
   placeCursor(cursorPositions);
 }
 
-function deletePrevousLetter() {
+function deletePreviousLetter() {
   const textArea = document.querySelector('.text-area');
   const cursorPositions = getCursorPositions();
   if (cursorPositions.start === cursorPositions.end) {
@@ -34,6 +34,18 @@ function deletePrevousLetter() {
     if (cursorPositions.start !== 0) {
       cursorPositions.start--;
     }
+  } else {
+    textArea.value = textArea.value.substring(0, cursorPositions.start) + textArea.value.substring(cursorPositions.end);
+  }
+  textArea.focus();
+  placeCursor(cursorPositions);
+}
+
+function deleteNextLetter() {
+  const textArea = document.querySelector('.text-area');
+  const cursorPositions = getCursorPositions();
+  if (cursorPositions.start === cursorPositions.end) {
+    textArea.value = textArea.value.substring(0, cursorPositions.start) + textArea.value.substring(cursorPositions.end + 1);
   } else {
     textArea.value = textArea.value.substring(0, cursorPositions.start) + textArea.value.substring(cursorPositions.end);
   }
@@ -89,8 +101,6 @@ function moveCursor(arrow) {
       cursorPositions.end = previousStringStartPosition + currentStringPosition;
     }
     cursorPositions.start = cursorPositions.end;
-    console.log('text = ', text, 'text.length = ', text.length, 'currentStringPosition = ', currentStringPosition, 'currentStringStartPosition = ',
-    currentStringStartPosition, 'previousStringStartPosition = ', previousStringStartPosition);
   } else if (arrow === 'ArrowDown') {
     const text = textArea.value;
     let currentStringPosition;
@@ -116,9 +126,6 @@ function moveCursor(arrow) {
         break;
       }
     }
-    console.log('text = ', text, 'text.length = ', text.length, 'cursorPositions.end = ', cursorPositions.end, 'currentStringPosition = ',
-    currentStringPosition, 'currentStringStartPosition = ',
-    currentStringStartPosition, 'currentStringEndPosition = ', currentStringEndPosition, 'nextStringEndPosition = ', nextStringEndPosition);
     if (currentStringEndPosition + 1 + currentStringPosition > nextStringEndPosition) {
       cursorPositions.end = nextStringEndPosition;
     } else {
@@ -128,4 +135,30 @@ function moveCursor(arrow) {
   }
   textArea.focus();
   placeCursor(cursorPositions);
+}
+
+function insertTab() {
+  const textArea = document.querySelector('.text-area');
+  const cursorPositions = getCursorPositions();
+  textArea.value = textArea.value.substring(0, cursorPositions.start) + '    ' + textArea.value.substring(cursorPositions.end);
+  cursorPositions.start += 4;
+  textArea.focus();
+  placeCursor(cursorPositions);
+}
+
+function insertSpace() {
+  const textArea = document.querySelector('.text-area');
+  const cursorPositions = getCursorPositions();
+  textArea.value = textArea.value.substring(0, cursorPositions.start) + ' ' + textArea.value.substring(cursorPositions.end);
+  cursorPositions.start += 1;
+  textArea.focus();
+  placeCursor(cursorPositions);
+}
+
+function toggleCapsLock() {
+  if (capsLockOn) {
+    capsLockOn = false;
+  } else {
+    capsLockOn = true;
+  }
 }

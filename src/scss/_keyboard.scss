@@ -24,8 +24,15 @@
   }
 }
 
+.caps_active {
+  outline: 1px solid;
+  outline-color: rgba(255, 255, 255, 0.1);
+  outline-offset: 20px;
+  box-shadow: inset 0 0 35px rgba(103, 245, 255, 1);
+  transform: scale(93%);
+}
+
 .key_active {
-  color: #000000;
   outline: 1px solid;
   outline-color: rgba(255, 255, 255, 0.1);
   outline-offset: 20px;
