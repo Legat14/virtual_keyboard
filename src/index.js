@@ -1,5 +1,5 @@
 import { Field } from "./classes/field";
-import { keycodes, keyLettersEn, Key } from "./classes/key";
+import { keycodes, keyLettersEn, keyLettersRu, currentLanguageEn, Key } from "./classes/key";
 import { addKeyboardListener, focusTextArea } from "./functions/globalEvents";
 export { buttonsArr };
 
@@ -10,9 +10,11 @@ field.create();
 const buttonsArr = [];
 
 keycodes.forEach((keycode, number) => {
-  buttonsArr[number] = new Key(keycode, keyLettersEn[number], number);
-  //buttonsArr[number].addKeyboardActive(); 
-  //buttonsArr[number].removeKeyboardActive(); 
+  if (currentLanguageEn) {
+    buttonsArr[number] = new Key(keycode, keyLettersEn[number]);
+  } else {
+    buttonsArr[number] = new Key(keycode, keyLettersRu[number]);
+  }
 });
 
   const textArea = document.querySelector('.text-area');

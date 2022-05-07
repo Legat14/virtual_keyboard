@@ -15,7 +15,11 @@ import {
 export {
   keycodes,
   keyLettersEn,
+  keyLettersRu,
   capsLockOn,
+  currentLanguageEn,
+  altLeftPressed,
+  ctrlLeftPressed,
   Key
 };
 
@@ -41,14 +45,38 @@ const keyLettersEnShift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')'
   'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', 'ArrowUp', 'Shift', 'Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Ctrl', 'ArrowLeft',
   'ArrowLeftDown', 'ArrowRight', 'Del'
 ];
+const keyLettersRu = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н',
+  'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Caps Lock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift',
+  'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ArrowUp', 'Shift', 'Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Ctrl', 'ArrowLeft',
+  'ArrowLeftDown', 'ArrowRight', 'Del'
+];
+const keyLettersRuCapsLock = ['Ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н',
+  'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '\\', 'Caps Lock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift',
+  'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', '.', 'ArrowUp', 'Shift', 'Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Ctrl', 'ArrowLeft',
+  'ArrowLeftDown', 'ArrowRight', 'Del'
+];
+const keyLettersRuShift = ['Ё', '!', '"', '№', ';', '%', ':', '?', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'Й', 'Ц', 'У', 'К', 'Е', 'Н',
+  'Г', 'Ш', 'Щ', 'З', 'Х', 'Ъ', '/', 'Caps Lock', 'Ф', 'Ы', 'В', 'А', 'П', 'Р', 'О', 'Л', 'Д', 'Ж', 'Э', 'Enter', 'Shift',
+  'Я', 'Ч', 'С', 'М', 'И', 'Т', 'Ь', 'Б', 'Ю', ',', 'ArrowUp', 'Shift', 'Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Ctrl', 'ArrowLeft',
+  'ArrowLeftDown', 'ArrowRight', 'Del'
+];
 
 let capsLockOn = false;
 let currentLanguageEn = true;
+let altLeftPressed = false;
+let ctrlLeftPressed = false;
+
+if (localStorage.getItem('currentLanguageEn') === 'false') {
+  currentLanguageEn = false;
+}
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('currentLanguageEn', currentLanguageEn);
+});
 
 class Key {
-  constructor(keycode, keyLetter, number) {
+  constructor(keycode, keyLetter) {
     this.keycode = keycode;
-    this.number = number;
     this.button = document.createElement('button');
     this.button.classList.add('key');
     if (keycode === 'ControlLeft' || keycode === 'ControlRight' || keycode === 'AltLeft' || keycode === 'AltRight' || keycode === 'MetaLeft') {
@@ -67,25 +95,23 @@ class Key {
 
     this.renameKey(keyLetter);
 
-    this.button.addEventListener('click', () => {
-      this.pressKey();
-    });
+    if (keycode !== 'ShiftLeft' && keycode !== 'ShiftRight') {
+      this.button.addEventListener('click', () => {
+        this.pressKey();
+      });
+    } else {
+      this.button.addEventListener('mousedown', () => {
+        this.pressKey();
+      });
+      this.button.addEventListener('mouseup', () => {
+        this.unpressKey();
+      });
+    }
 
     const keyboardDiv = document.querySelector('.keyboard-div');
     keyboardDiv.append(this.button);
   }
-  // addKeyboardActive() {
-  //   this.button.addEventListener('keydown', () => {
-  //     this.button.classList.add('key_active');
-  //   });
-  // }
-  // removeKeyboardActive() {
-  //   this.button.addEventListener('keyup', () => {
-  //     this.button.classList.remove('key_active');
-  //   });
-  // }
   pressKey() {
-    console.log(event);
     if (this.keycode !== 'MetaLeft' && this.keycode !== 'AltLeft' && this.keycode !== 'AltRight' && this.keycode !== 'ControlLeft' && this.keycode !== 'ControlRight') {
       if (this.keycode === 'Backspace') {
         deletePreviousLetter();
@@ -100,7 +126,11 @@ class Key {
       } else if (this.keycode === 'Space') {
         insertSpace();
       } else if (this.keycode === 'ShiftLeft' || this.keycode === 'ShiftRight') {
-        nameAllKeys(buttonsArr, keyLettersEnShift);
+        if (currentLanguageEn) {
+          nameAllKeys(buttonsArr, keyLettersEnShift);
+        } else {
+          nameAllKeys(buttonsArr, keyLettersRuShift);
+        }
       } else if (this.keycode === 'CapsLock') {
         toggleCapsLock();
         if (currentLanguageEn) {
@@ -111,6 +141,14 @@ class Key {
             nameAllKeys(buttonsArr, keyLettersEn);
             this.button.classList.remove('caps_active');
           }
+        } else {
+          if (capsLockOn) {
+            nameAllKeys(buttonsArr, keyLettersRuCapsLock);
+            this.button.classList.add('caps_active');
+          } else {
+            nameAllKeys(buttonsArr, keyLettersRu);
+            this.button.classList.remove('caps_active');
+          }
         }
       } else {
         enterLetter(this);
@@ -118,12 +156,19 @@ class Key {
     }
   }
   unpressKey() {
-    console.log(event);
     if (this.keycode === 'ShiftLeft' || this.keycode === 'ShiftRight') {
-      if (capsLockOn) {
-        nameAllKeys(buttonsArr, keyLettersEnCapsLock);
+      if (currentLanguageEn) {
+        if (capsLockOn) {
+          nameAllKeys(buttonsArr, keyLettersEnCapsLock);
+        } else {
+          nameAllKeys(buttonsArr, keyLettersEn);
+        }
       } else {
-        nameAllKeys(buttonsArr, keyLettersEn);
+        if (capsLockOn) {
+          nameAllKeys(buttonsArr, keyLettersRuCapsLock);
+        } else {
+          nameAllKeys(buttonsArr, keyLettersRu);
+        }
       }
     }
   }
@@ -147,6 +192,13 @@ class Key {
       this.button.innerHTML = newKey;
     }
   }
+  changeLanguage() {
+    if (currentLanguageEn) {
+      nameAllKeys(buttonsArr, keyLettersEn);
+    } else {
+      nameAllKeys(buttonsArr, keyLettersRu);
+    }
+  }
 };
 
 function nameAllKeys(buttonsArr, newKeysArr) {
@@ -155,4 +207,6 @@ function nameAllKeys(buttonsArr, newKeysArr) {
   });
 }
 
-//TODO: Клавиша Win не открывает пуск, если нажать ее мышкой
+//TODO: Сделать переключатель языка мышкой
+// Проверить требования еще раз
+// Оформить шапку и футер
