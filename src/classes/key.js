@@ -193,19 +193,24 @@ class Key {
     }
   }
   changeLanguage() {
-    if (currentLanguageEn) {
-      nameAllKeys(buttonsArr, keyLettersEn);
+    if(capsLockOn) {
+      if (currentLanguageEn) {
+        nameAllKeys(buttonsArr, keyLettersEnCapsLock);
+      } else {
+        nameAllKeys(buttonsArr, keyLettersRuCapsLock);
+      }
     } else {
-      nameAllKeys(buttonsArr, keyLettersRu);
+      if (currentLanguageEn) {
+        nameAllKeys(buttonsArr, keyLettersEn);
+      } else {
+        nameAllKeys(buttonsArr, keyLettersRu);
+      }
     }
   }
-};
+}
 
 function nameAllKeys(buttonsArr, newKeysArr) {
   buttonsArr.forEach((button, number) => {
     button.renameKey(newKeysArr[number]);
   });
 }
-
-//TODO: Проверить линтером
-// Добавить скриншот

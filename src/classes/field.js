@@ -35,14 +35,14 @@ class Field {
     footerCourseLink.setAttribute('href', 'https://rs.school/');
     footerCourseLink.setAttribute('target', '_blank');
 
-    headerTitle.innerText = 'Virtual Keyboard (VK)'
-    headerDescription.innerText = 'This virtual keyboard is designed for windows'
-    headerLangCangeInstruction.innerText = 'To switch language press Left Alt + Left Ctrl'
-    headerLangCangeDiv.innerText = 'or press this button: '
-    headerLangCangeButton.innerText = 'En'
-    footerDevelopmentPDeveloper.innerHTML = '<span>Developer: </span><a class="footer__a" href="https://github.com/Legat14" target="_blank">Ivan Zotov</a>'
-    footerDevelopmentPYear.innerText = 'May of 2022'
-    footerCourseLink.innerHTML = '<img src="./assets/img/rs_school_js_w.svg" alt="RS School" width="180" height="67">'
+    headerTitle.innerText = 'Virtual Keyboard (VK)';
+    headerDescription.innerText = 'This virtual keyboard is designed for windows';
+    headerLangCangeInstruction.innerText = 'To switch language press Left Alt + Left Ctrl';
+    headerLangCangeDiv.innerText = 'or press this button: ';
+    headerLangCangeButton.innerText = 'En';
+    footerDevelopmentPDeveloper.innerHTML = '<span>Developer: </span><a class="footer__a" href="https://github.com/Legat14" target="_blank">Ivan Zotov</a>';
+    footerDevelopmentPYear.innerText = 'May of 2022';
+    footerCourseLink.innerHTML = '<img src="./assets/img/rs_school_js_w.svg" alt="RS School" width="180" height="67">';
 
     document.body.append(headerDiv);
     headerDiv.append(headerTitle);
@@ -59,5 +59,5 @@ class Field {
     footerDevelopment.append(footerDevelopmentPDeveloper);
     footerDevelopment.append(footerDevelopmentPYear);
     footerDiv.append(footerCourseLink);
-  };
-};
+  }
+}
