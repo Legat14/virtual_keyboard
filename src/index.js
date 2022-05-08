@@ -1,6 +1,7 @@
 import { Field } from "./classes/field";
 import { keycodes, keyLettersEn, keyLettersRu, currentLanguageEn, Key } from "./classes/key";
 import { addKeyboardListener, focusTextArea } from "./functions/globalEvents";
+import { changeLanguageByButton } from "./functions/langSwitchButton";
 export { buttonsArr };
 
 const field = new Field();
@@ -21,3 +22,4 @@ keycodes.forEach((keycode, number) => {
   textArea.focus();
   addKeyboardListener();
   focusTextArea();
+  changeLanguageByButton();

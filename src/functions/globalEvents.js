@@ -35,7 +35,6 @@ function addKeyboardListener() {
               currentLanguageEn = true;
             }
             thisButton.changeLanguage();
-            console.log (currentLanguageEn);
           }
         }
         thisButton.pressKey();

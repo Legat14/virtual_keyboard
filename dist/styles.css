@@ -101,7 +101,10 @@ body {
 }
 .header-div > div {
   margin-right: 10vw;
-  height: 100px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .header-div .header__p {
   color: #ffffff;
@@ -247,6 +250,10 @@ body {
 
 .key-size-6 {
   width: 265px;
+}
+
+.header__lang-change-button {
+  height: 40px;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -9,6 +9,8 @@ class Field {
     const headerDivDescription = document.createElement('div');
     const headerDescription = document.createElement('p');
     const headerLangCangeInstruction = document.createElement('p');
+    const headerLangCangeDiv = document.createElement('p');
+    const headerLangCangeButton = document.createElement('button');
     const textAreaDiv = document.createElement('div');
     const textArea = document.createElement('textarea');
     const keyboardDiv = document.createElement('div');
@@ -21,6 +23,10 @@ class Field {
     headerDiv.classList.add('header-div');
     headerDescription.classList.add('header__p');
     headerLangCangeInstruction.classList.add('header__p');
+    headerLangCangeDiv.classList.add('header__p');
+    headerLangCangeButton.classList.add('header__lang-change-button');
+    headerLangCangeButton.classList.add('key');
+    headerLangCangeButton.classList.add('key-size-2');
     textAreaDiv.classList.add('text-area-div');
     textArea.classList.add('text-area');
     keyboardDiv.classList.add('keyboard-div');
@@ -32,6 +38,8 @@ class Field {
     headerTitle.innerText = 'Virtual Keyboard (VK)'
     headerDescription.innerText = 'This virtual keyboard is designed for windows'
     headerLangCangeInstruction.innerText = 'To switch language press Left Alt + Left Ctrl'
+    headerLangCangeDiv.innerText = 'or press this button: '
+    headerLangCangeButton.innerText = 'En'
     footerDevelopmentPDeveloper.innerHTML = '<span>Developer: </span><a class="footer__a" href="https://github.com/Legat14" target="_blank">Ivan Zotov</a>'
     footerDevelopmentPYear.innerText = 'May of 2022'
     footerCourseLink.innerHTML = '<img src="./assets/img/rs_school_js_w.svg" alt="RS School" width="180" height="67">'
@@ -41,6 +49,8 @@ class Field {
     headerDiv.append(headerDivDescription);
     headerDivDescription.append(headerDescription);
     headerDivDescription.append(headerLangCangeInstruction);
+    headerDivDescription.append(headerLangCangeDiv);
+    headerLangCangeDiv.append(headerLangCangeButton);
     document.body.append(textAreaDiv);
     textAreaDiv.append(textArea);
     document.body.append(keyboardDiv);
